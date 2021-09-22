@@ -41,6 +41,17 @@ Represents a network like:
 
 Any additional columns in the .csv file is ignored in the script. 
 
+! IMPORTANT NOTE: A given edge in the input network csv cannot contain multiple n_vehicles. That is, if more
+than one line is travelling from one node to the other there have to be multiple edges (rows) in the .csv file as well.
+As an example, both black and blue lines travel between node 1 and 2. Therefore, in the .csv files we have 2 lines:
+
+| from_stop_I  | to_stop_I  | d  |  n_vehicles |
+|--------------|------------|----|-------------|
+|     ...      |    ...     | .. |     ...     |
+|       1      |     2      | 15 |    blue     |
+|       2      |     1      | 20 |    black    |
+|     ...      |    ...     | .. |     ...     |
+
 The script "expand_network.py" expands the network using the Kirby and Potts expansion, as follows: 
 
 ![alt text](docs/network_expanded.png "Network")
@@ -68,16 +79,6 @@ Indicates that transition times to change between black and blue line is 10 (min
 the black and red line is 5 (min) and transition time between the blue and red line is 8 min.
 If no transition time between certain lines combination is given, the script assign transition time = 0.
 
-! IMPORTANT NOTE: A given edge in the input network csv cannot contain multiple n_vehicles. That is, if more
-than one line is travelling from one node to the other there have to be multiple edges (rows) in the .csv file as well.
-As an example, both black and blue lines travel between node 1 and 2. Therefore, in the .csv files we have 2 lines:
-
-| from_stop_I  | to_stop_I  | d  |  n_vehicles |
-|--------------|------------|----|-------------|
-|     ...      |    ...     | .. |     ...     |
-|       1      |     2      | 15 |    blue     |
-|       2      |     1      | 20 |    black    |
-|     ...      |    ...     | .. |     ...     |
 
 # Usage
 

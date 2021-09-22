@@ -61,7 +61,7 @@ def get_transfer_duration(pd_frame, line_in, line_out):
     if len(selected_line) == 0:
         return 0
 
-    duration = selected_line["d"]
+    duration = selected_line["d"].tolist()
     assert len(duration) == 1
     duration = duration[0]
 

@@ -5,8 +5,10 @@ import string
 import random
 from itertools import permutations
 
+
 def id_generator(size=6, chars=string.ascii_uppercase + string.digits):
     return ''.join(random.choice(chars) for _ in range(size))
+
 
 def get_distance(line_in, line_out):
     if line_in != line_out != "walk":
@@ -57,15 +59,23 @@ def main(data_root):
 
     # generating the transfer delays file with constant transfer delays
     vehicles = list(set(combined_dataset["n_vehicles"]))
-    vehicles_combinations = list(permutations(vehicles, 2))
+    # vehicles_combinations = list(permutations(vehicles, 2))
+
+    vehicles_combinations = []
+    for vehicle_in in vehicles:
+        for vehicle_out in vehicles:
+            if vehicle_in != vehicle_out:
+                vehicles_combinations.append((vehicle_in, vehicle_out))
+
     transition_time = {"n_vehicles_in": [item[0] for item in vehicles_combinations],
-                       "n_vehicles_out": [item[0] for item in vehicles_combinations],
+                       "n_vehicles_out": [item[1] for item in vehicles_combinations],
                        "d": [get_distance(item[0], item[1]) for item in vehicles_combinations]}
     transition_frame = pd.DataFrame(transition_time)
-    transition_frame.to_csv(os.path.join(data_root, "transition_time.csv"), index=False)
+    transition_frame.drop_duplicates()
+    transition_frame.to_csv(os.path.join(data_root, "transition_time.csv"), index=False, sep=";")
 
     data_frame = pd.DataFrame(combined_dataset)
-    data_frame.to_csv(os.path.join(data_root, "network.csv"), index=False)
+    data_frame.to_csv(os.path.join(data_root, "network.csv"), index=False, sep=";")
 
 
 if __name__ == '__main__':

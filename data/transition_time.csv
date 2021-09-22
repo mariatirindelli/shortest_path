@@ -1,0 +1,7 @@
+n_vehicles_in;n_vehicles_out;d
+black;blue;10
+blue;black;10
+black;red;5
+red;black;5
+blue;red;8
+red;blue;8

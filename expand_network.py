@@ -1,4 +1,6 @@
 import pandas as pd
+import argparse
+import os
 
 
 class Node:
@@ -62,10 +64,10 @@ def get_transfer_duration(pd_frame, line_in, line_out):
     return duration
 
 
-def main():
+def main(data_root):
 
-    pd_frame = pd.read_csv("data/network.csv", delimiter=";")
-    transfer_time_frame = pd.read_csv("data/transition_time.csv", delimiter=";")
+    pd_frame = pd.read_csv(os.path.join(data_root, "network.csv"), delimiter=";")
+    transfer_time_frame = pd.read_csv(os.path.join(data_root, "transition_time.csv"), delimiter=";")
     all_nodes = get_nodes(pd_frame)
 
     extended_network = {"from_stop_I": [],
@@ -145,8 +147,12 @@ def main():
                     add_edge(extended_network, edge)
 
     expanded_frame = pd.DataFrame(extended_network)
-    expanded_frame.to_csv("data/expanded_network.csv")
+    expanded_frame.to_csv(os.path.join(data_root, "expanded_network.csv"), index=False)
 
 
 if __name__ == '__main__':
-    main()
+    parser = argparse.ArgumentParser(description='Kirby and Potts expansion')
+    parser.add_argument('--data_root', type=str, default="data/example1", help='an integer for the accumulator')
+    args = parser.parse_args()
+
+    main(args.data_root)

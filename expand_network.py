@@ -22,12 +22,6 @@ def get_nodes(pd_frame):
     return set(starting_nodes + ending_nodes)
 
 
-def add_node(pd_frame, node):
-    for key in node.keys():
-        pd_frame[key].append(node[key])
-    return pd_frame
-
-
 def add_edge(network, edge):
     network["from_stop_I"].append(edge.starting_node_id)
     network["to_stop_I"].append(edge.ending_node_id)
@@ -152,6 +146,7 @@ def main():
 
     expanded_frame = pd.DataFrame(extended_network)
     expanded_frame.to_csv("data/expanded_network.csv")
+
 
 if __name__ == '__main__':
     main()

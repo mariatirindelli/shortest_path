@@ -83,6 +83,7 @@ As an example, both black and blue lines travel between node 1 and 2. Therefore,
 
 The network edges have to be contained in the data/network.csv file
 The transition times between lines have to be contained in the data/transition_time.csv file
+The script generates a new file in data/expanded_network.csv containing the edges for the expanded network
 
 An example network.csv and transition_time.csv are contained in the data folder. The script can be launched on the
 example as:
